@@ -1,12 +1,14 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
+	"log"
+	"os"
 	"strings"
 
 	"github.com/ChimeraCoder/anaconda"
+	"github.com/urfave/cli"
 )
 
 // Check Error
@@ -26,27 +28,38 @@ func readVariables() []string {
 }
 
 func main() {
-
 	// Get variables keys
 	keys := readVariables()
 	anaconda.SetConsumerKey(keys[0])
 	anaconda.SetConsumerSecret(keys[1])
 	api := anaconda.NewTwitterApi(keys[2], keys[3])
 
-	// Flag insert
-	var message *string = flag.String(
-		"m",
-		"",
-		"Message to tweet")
+	app := cli.NewApp()
 
-	flag.Parse()
+	// Define command your client
+	app.Commands = []cli.Command{
+		{
+			Name:    "message",
+			Aliases: []string{"m"},
+			Usage:   "Input message. [Usage]: allgocial message 'I am using allgocial :D'",
+			Action: func(c *cli.Context) error {
+				if c.NArg() == 1 {
+					// Logic
+					// Post Tweet
+					_, err := api.PostTweet(c.Args()[0], nil)
+					if err != nil {
+						fmt.Println("No se pudo publicar el tweet", err)
+					} else {
+						fmt.Println("Tweet success!")
+					}
 
-	// Post Tweet
-	_, err := api.PostTweet(*message, nil)
-	if err != nil {
-		fmt.Println("No se pudo publicar el tweet", err)
-	} else {
-		fmt.Println("Tweet publicado exitosamente")
+				} else {
+					log.Println("Error input message. See -h to see help")
+				}
+				return nil
+			},
+		},
 	}
-
+	app.Version = "0.3"
+	app.Run(os.Args)
 }
