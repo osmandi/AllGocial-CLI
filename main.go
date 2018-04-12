@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
-	"strings"
 
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/urfave/cli"
 )
+
+// TODO: Agregar funcionalidad de authenticación por OAuth a AllGocial usando url y abriéndose automáticamente.
+// TODO: Realizado la autorización, publicar el codigo y dejarlo como portafolio.
 
 // Check Error
 func check(e error) {
@@ -21,10 +22,15 @@ func check(e error) {
 
 // Read variables key
 func readVariables() []string {
-	fileText, err := ioutil.ReadFile("keys.txt")
-	check(err)
+	/*
+		fileText, err := ioutil.ReadFile("keys.txt")
+		check(err)
 
-	return strings.Split(string(fileText), ",")
+		return strings.Split(string(fileText), ",")
+	*/
+
+	variables := []string{os.Getenv("CONSUMERKEY"), os.Getenv("CONSUKERSECRET"), os.Getenv("ACCESTOKEN"), os.Getenv("ACCESSTOKENSECRET")}
+	return variables
 }
 
 func main() {
