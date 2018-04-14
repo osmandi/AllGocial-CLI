@@ -29,7 +29,7 @@ func readVariables() []string {
 		return strings.Split(string(fileText), ",")
 	*/
 
-	variables := []string{os.Getenv("CONSUMERKEY"), os.Getenv("CONSUKERSECRET"), os.Getenv("ACCESTOKEN"), os.Getenv("ACCESSTOKENSECRET")}
+	variables := []string{os.Getenv("CONSUMERKEY"), os.Getenv("CONSUMERSECRET"), os.Getenv("ACCESSTOKEN"), os.Getenv("ACCESSTOKENSECRET")}
 	return variables
 }
 
