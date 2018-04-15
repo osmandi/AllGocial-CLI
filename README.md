@@ -26,9 +26,12 @@ export ACCESSTOKENSECRET=LO-OBTIENES-DESDE-EL-API
 ```
 
 # Uso
+```
+go run main.go -h -> Ayuda de comandos e instrucciones.
 
-**go run main.go -h** -> Ayuda de comandos e instrucciones
-**go run main.go messge "Tweet a publicar"** -> Publica tu mensaje
+go run main.go message "Tweet a publicar" -> Publica tu mensaje.
+
+```
 
 > Si creas un alias o bien lo instalas, podrás usarlo desde cualquier path. Ejemplo: **allgocial message "este es un tweet"**.
 
